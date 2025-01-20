@@ -1,0 +1,21 @@
+@if (items.length > 0) {
+<h3>Detalle de la factura</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Quitar</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (item of items; track $index) {
+        <tr row-item [item]="item" (removeEventEmmiter)="removeItem($event)"></tr>
+        }
+    </tbody>
+</table>
+} @else {
+<div class="alert alert-warning">Aún no se cargó ningún item</div>
+}

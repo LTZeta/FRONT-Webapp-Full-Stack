@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
 import { ProductCardComponent } from '../product-card/product-card.component';
-import { Router } from '@angular/router';
 import { SharingDataService } from '../../services/sharing-data.service';
-import { ProductService } from '../../services/product.service';
+import { Store } from '@ngrx/store';
+import { productsFindAll } from '../../store/producs.actions';
 
 @Component({
   selector: 'catalog',
@@ -11,22 +11,20 @@ import { ProductService } from '../../services/product.service';
   imports: [ProductCardComponent],
   templateUrl: './catalog.component.html'
 })
+
 export class CatalogComponent implements OnInit {
   products!: Product[];
 
-  constructor(private productService: ProductService, private sharingDataService: SharingDataService, private router: Router) {
-    if (this.router.getCurrentNavigation()?.extras.state) {
-      this.products = this.router.getCurrentNavigation()?.extras.state!['products'];
-    }
+  constructor(private store: Store<{ productsReducer: any }>, private sharingDataService: SharingDataService) {
+    this.store.select('productsReducer').subscribe(state => this.products = state.products)
   }
 
   ngOnInit(): void {
-    if (!this.products) {
-      this.products = this.productService.findAll();
-    }
+    this.store.dispatch(productsFindAll());
   }
 
   onAddProductOnCart(product: Product): void {
     this.sharingDataService.productEventEmitter.emit(product);
   }
+
 }

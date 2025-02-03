@@ -1,11 +1,9 @@
-<div class="modal abrir-modal animacion fadeIn" tabindex="-1" style="display: block;">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Formulario de {{(user.id > 0 ? "modificación" : "creación")}} de usuario</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onIsOpen()"></button>
+<div class="card">
+    <div class="card-content">
+      <div class="card-header">
+        <h5 class="card-title">Formulario de {{(user.id > 0 ? "modificación" : "creación")}} de usuario</h5>
       </div>
-      <div class="modal-body">
+      <div class="card-body">
         <form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
           <div>
             <input class="form-control my-2" name="name" placeholder="Nombre*" [(ngModel)]="user.name" required
@@ -88,9 +86,5 @@
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="onIsOpen()">Cerrar</button>
-      </div>
     </div>
-  </div>
 </div>
